@@ -1,0 +1,12 @@
+---
+title: "README"
+output: html_document
+---
+
+## Get data from vndirect API
+```{r}
+library(vnd.data)
+dt <- vndirect_query('VCB', 100)
+dt
+```
+

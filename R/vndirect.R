@@ -7,6 +7,7 @@
 #' @importFrom purrr map_dfr
 #' @importFrom dplyr bind_rows
 #' @example vnd_get_data('VCB', 1000)
+#' @export
 vnd_get_data <- function(.ticker = NULL, .size = 1000) {
   
   if (is.null(.ticker)) {
@@ -28,13 +29,13 @@ vnd_get_data <- function(.ticker = NULL, .size = 1000) {
     q = endpoint
   )
   
-  res <- GET(base, query = params)
+  res <- httr::GET(base, query = params)
   
-  df <- content(res) %>% 
-    extract2('data') %>% 
-    map_dfr(bind_rows) %>% 
-    rename(ticker_name = code) %>% 
-    mutate(date = as.Date(date))
+  df <- httr::content(res) %>% 
+    magrittr::extract2('data') %>% 
+    purrr::map_dfr(bind_rows) %>% 
+    dplyr::rename(ticker_name = code) %>% 
+    dplyr::mutate(date = as.Date(date))
     
   
   df

@@ -1,3 +1,7 @@
+VNDIRECT <- list(
+  METHODS = c('GET', 'POST', 'PUT', 'DELETE')
+)
+
 #' Return current UNIX timestamp in millisecond
 #' @return milliseconds since Jan 1, 1970
 #' @keywords internal

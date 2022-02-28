@@ -1,12 +1,12 @@
 ---
-title: "README"
+title: "Get data from vndirect API"
 output: html_document
 ---
 
-## Get data from vndirect API
 ```{r}
-library(vnd.data)
-dt <- vndirect_query('VCB', 100)
-dt
+library(vndirect)
+dt <- vnd_get_data('VCB', 100)
+head(dt)
+dplyr::glimpse(dt)
 ```
 

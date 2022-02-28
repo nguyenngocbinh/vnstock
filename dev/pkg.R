@@ -15,3 +15,12 @@ my_desc$set("BugReports", "https://github.com/nguyenngocbinh/vnd_data/issues")
 my_desc$del("Maintainer")
 
 my_desc$write(file = "DESCRIPTION")
+
+
+purrr::map(
+  c(
+    'dplyr', 'httr', 'logger', 'magrittr', 'purrr'
+  ) ,
+  usethis::use_package, type = "Imports", min_version = T
+)
+

@@ -1,5 +1,13 @@
-
 # Get data from vndirect API
+
+## Installation 
+
+```{r}
+# install.packages("devtools")
+devtools::install_github("nguyenngocbinh/vndirect")
+```
+
+## Get data
 
 ``` r
 library(vndirect)

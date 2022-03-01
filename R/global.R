@@ -1,1 +1,1 @@
-utils::globalVariables(c("ticker_name", "date", "code"))
+utils::globalVariables(c("code"))

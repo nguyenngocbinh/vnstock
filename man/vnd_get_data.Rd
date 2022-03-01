@@ -2,9 +2,9 @@
 % Please edit documentation in R/vndirect.R
 \name{vnd_get_data}
 \alias{vnd_get_data}
-\title{Request the VNDIRECT API}
+\title{REQUEST THE VNDIRECT API}
 \usage{
-vnd_get_data(.ticker = NULL, .size = 1000)
+vnd_get_data(.ticker = NULL, .size = 100)
 }
 \arguments{
 \item{.ticker}{stock symbol}
@@ -15,5 +15,5 @@ vnd_get_data(.ticker = NULL, .size = 1000)
 data.frame
 }
 \description{
-Request the VNDIRECT API
+REQUEST THE VNDIRECT API
 }

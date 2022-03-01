@@ -11,6 +11,5 @@ RoxygenNote: 7.1.2
 Imports: 
     dplyr (>= 1.0.8),
     httr (>= 1.4.2),
-    logger (>= 0.2.2),
     magrittr (>= 2.0.2),
     purrr (>= 0.3.4)

@@ -17,3 +17,6 @@ data.frame
 \description{
 GET DATA FROM MULTIPLE STOCKS
 }
+\examples{
+vnd_get_list_data(c('TPB', 'VCB'))
+}

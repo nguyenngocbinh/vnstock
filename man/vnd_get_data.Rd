@@ -17,3 +17,6 @@ data.frame
 \description{
 REQUEST THE VNDIRECT API
 }
+\examples{
+vnd_get_data('TPB', 1000)
+}

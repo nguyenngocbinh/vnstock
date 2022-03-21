@@ -72,3 +72,29 @@ vnd_get_list_data <- function(.tickers = NULL, .size = 100) {
 
 
 
+#' Company information
+#'
+#' @param .tickers ticker with 3 characters
+#' @export
+#' @example
+#' tpb_info <- vnd_company_info("TPB")
+#' all_company <- vnd_company_info()
+
+vnd_company_info <-  function(.ticker = character()) {
+  
+  base <- 'https://finfo-api.vndirect.com.vn/stocks'
+  
+  endpoint = paste0(base, "?symbol=", .ticker)
+  
+  res <- httr::GET(endpoint) %>% 
+    httr::content() %>% 
+    magrittr::extract2('data')
+  
+  df_company_info <-  res %>% 
+    map_dfr(bind_rows) %>% 
+    rename(ticker_name = symbol) 
+  
+  df_company_info
+  
+}
+

@@ -3,7 +3,7 @@ Title: GET DATA FROM VNDIRECT API
 Version: 0.0.1
 Authors@R: person('Ngoc Binh Nguyen', email = 'nguyenngocbinhneu@gmail.com', role = c('cre', 'aut'))
 Description: Some utility functions for working with the VNDIRECT API.
-License: MIT
+License: MIT + file LICENSE
 URL: https://github.com/nguyenngocbinh/vndirect
 BugReports: https://github.com/nguyenngocbinh/vndirect/issues
 Encoding: UTF-8
@@ -12,7 +12,8 @@ Imports:
     dplyr (>= 1.0.8),
     httr (>= 1.4.2),
     magrittr (>= 2.0.2),
-    purrr (>= 0.3.4)
+    purrr (>= 0.3.4),
+    testthat (>= 3.1.7)
 Suggests: 
     knitr,
     rmarkdown

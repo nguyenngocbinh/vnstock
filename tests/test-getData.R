@@ -1,5 +1,5 @@
 library(testthat)
-
+library(vndirect)
 test_that("Get data for a valid ticker", {
   # Replace 'TPB' with a valid ticker from your API
   result <- getData(.tickers = "TPB", .size = 100)
@@ -38,3 +38,4 @@ test_that("Get data with invalid size", {
   # Test for .size <= 0
   expect_error(getData(.tickers = "TPB", .size = 0), class = "error")
 })
+

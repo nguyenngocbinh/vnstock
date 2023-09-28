@@ -61,6 +61,7 @@ dplyr::glimpse(dt)
     ## $ adChange     <dbl> 0.5, -0.6, -0.2, -1.6, 0.1, -0.6, 0.2, -0.3, 0.5, 0.0, 1.~
     ## $ pctChange    <dbl> 0.5917, -0.7051, -0.2345, -1.8412, 0.1152, -0.6865, 0.229~
 
+
 ```
 vndirect
 ├─ cran-comments.md
@@ -68,9 +69,7 @@ vndirect
 ├─ DESCRIPTION
 ├─ LICENSE
 ├─ man
-│  ├─ vnd_company_info.Rd
-│  ├─ vnd_get_data.Rd
-│  └─ vnd_get_list_data.Rd
+│  └─ getData.Rd
 ├─ NAMESPACE
 ├─ R
 │  └─ vndirect.R

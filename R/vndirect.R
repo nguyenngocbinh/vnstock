@@ -77,44 +77,4 @@ getData <- function(.tickers = NULL, .size = 100) {
 }
 
 
-#' Company Information
-#'
-#' Retrieves company information from the VNDIRECT API for a given ticker.
-#'
-#' @param .ticker Ticker with 3 characters. Pass this parameter if you want to return information for a specific company.
-#' @return A data frame containing company information.
-#' @importFrom httr GET
-#' @importFrom magrittr `%>%`
-#' @export
-#'
-#' @examples 
-#' # Retrieve information for a specific company
-#' cpn_info <- companyInfo()
-#' 
-#' @export
-companyInfo <- function(.ticker = NULL) {
-  # Check if .ticker is valid
-  if (is.null(.ticker) || nchar(.ticker) != 3) {
-    stop('Invalid or missing .ticker. Please provide a valid 3-character ticker.')
-  }
-  
-  # Define the base URL and endpoint
-  base <- 'https://finfo-api.vndirect.com.vn/v4/stocks'
-  endpoint <- paste0(base, "code:", .ticker)
-  
-  # Send the HTTP request
-  res <- httr::GET(url = base, query = params)
-  
-  # Check if the HTTP request was successful
-  if (httr::http_error(res)) {
-    stop(paste('Failed to retrieve data for ticker:', .ticker))
-  }
-  
-  # Extract and process the data
-  df_company_info <- httr::content(res, "parsed")$data %>%
-    purrr::map_dfr(bind_rows) 
-  
-  return(df_company_info)
-}
-
 

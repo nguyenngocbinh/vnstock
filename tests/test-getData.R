@@ -1,3 +1,5 @@
+library(testthat)
+
 test_that("Get data for a valid ticker", {
   # Replace 'TPB' with a valid ticker from your API
   result <- getData(.tickers = "TPB", .size = 100)

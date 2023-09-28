@@ -1,6 +1,6 @@
 Package: vndirect
 Title: GET DATA FROM VNDIRECT API
-Version: 0.0.0.9000
+Version: 0.1
 Authors@R: person('Ngoc Binh Nguyen', email = 'nguyenngocbinhneu@gmail.com', role = c('cre', 'aut'))
 Description: Some utilities functions to working with vndirect api.
 License: MIT + file LICENSE

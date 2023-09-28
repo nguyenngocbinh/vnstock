@@ -11,7 +11,7 @@ devtools::install_github("nguyenngocbinh/vndirect")
 
 ``` r
 library(vndirect)
-dt <- vnd_get_data('VCB', 100)
+dt <- getData('VCB', 100)
 head(dt)
 ```
 
@@ -60,3 +60,26 @@ dplyr::glimpse(dt)
     ## $ change       <dbl> 0.5, -0.6, -0.2, -1.6, 0.1, -0.6, 0.2, -0.3, 0.5, 0.0, 1.~
     ## $ adChange     <dbl> 0.5, -0.6, -0.2, -1.6, 0.1, -0.6, 0.2, -0.3, 0.5, 0.0, 1.~
     ## $ pctChange    <dbl> 0.5917, -0.7051, -0.2345, -1.8412, 0.1152, -0.6865, 0.229~
+
+```
+vndirect
+├─ cran-comments.md
+├─ CRAN-SUBMISSION
+├─ DESCRIPTION
+├─ LICENSE
+├─ man
+│  ├─ vnd_company_info.Rd
+│  ├─ vnd_get_data.Rd
+│  └─ vnd_get_list_data.Rd
+├─ NAMESPACE
+├─ R
+│  └─ vndirect.R
+├─ README.md
+├─ tests
+│  └─ test-getData.R
+├─ vignettes
+│  ├─ .gitignore
+│  └─ getdata.Rmd
+└─ vndirect.Rproj
+
+```

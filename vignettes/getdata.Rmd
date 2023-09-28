@@ -21,21 +21,21 @@ library(vndirect)
 - Get single timeseries
 
 ```{r}
-single_data <- vnd_get_data('VCB', 100)
+single_data <- getData('VCB', 100)
 head(single_data)
 ```
 
 - Get multiple timeseries with default `.size = 100`
 
 ```{r}
-multiple_stocks_data <- vndirect::vnd_get_list_data(c('TCB','VCB','BVB'))
+multiple_stocks_data <- getData(c('TCB','VCB','BVB'))
 table(multiple_stocks_data$ticker_name)
 ```
 
 - Change default size
 
 ```{r}
-multiple_stocks_data <- vndirect::vnd_get_list_data(c('TCB','VCB','BVB'), .size = 500)
+multiple_stocks_data <- getData(c('TCB','VCB','BVB'), .size = 500)
 table(multiple_stocks_data$ticker_name)
 ```
 

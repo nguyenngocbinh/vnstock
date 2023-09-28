@@ -1,104 +1,120 @@
 #' REQUEST THE VNDIRECT API
-#' @param .ticker stock symbol
-#' @param .size length of historical data
-#' @return data.frame
+#' 
+#' Retrieves historical stock data from the VNDIRECT API for multiple tickers.
+#'
+#' @param .tickers A character vector of stock symbols.
+#' @param .size Length of historical data.
+#' @return A data frame containing historical stock data for all tickers.
 #' @importFrom magrittr `%>%`
-#' @examples vnd_get_data('TPB', 1000)
+#' @importFrom dplyr bind_rows
+#' @import httr
+#'
+#' @examples
+#' getData(c('TPB', 'VCB', 'HCM'), 1000)
+#'
 #' @export
-vnd_get_data <- function(.ticker = NULL, .size = 100) {
+getData <- function(.tickers = NULL, .size = 100) {
   
-  if (is.null(.ticker)) {
-    stop('.ticker is not set')
-  }
-  
-  if(.size <= 0){
-    stop('.size must be > 0')
-  }
-  
-  base <- "https://finfo-api.vndirect.com.vn/v4/stock_prices/"
-  
-  endpoint = paste('code:', .ticker)
-  
-  params = list(
-    sort = "date",
-    size = .size,
-    page = 1,
-    q = endpoint
-  )
-  
-  res <- httr::GET(base, query = params) %>% 
-    httr::content() %>% 
-    magrittr::extract2('data')
-  
-  if(length(res) < 1) {
-    stop(paste('Do not have data. Try to correct ticker_name:', .ticker))
-  }
-  
-  
-  df <-  res %>% 
-    purrr::map_dfr(bind_rows) %>% 
-    dplyr::rename(ticker_name = code) %>% 
-    dplyr::mutate(date = as.Date(date))
-  
-  
-  df
-}
-
-
-#' GET DATA FROM MULTIPLE STOCKS
-#' @param .tickers list of stock symbols
-#' @param .size length of historical data
-#' @return data.frame
-#' @examples vnd_get_list_data(c('TPB', 'VCB'))
-#' @export
-vnd_get_list_data <- function(.tickers = NULL, .size = 100) {
-  if (is.null(.tickers)) {
-    stop('.ticker is not set')
+  # Check if .tickers and .size are valid
+  if (is.null(.tickers) || length(.tickers) == 0) {
+    stop('.tickers is not set')
   }
   
   if (.size <= 0) {
     stop('.size must be > 0')
   }
   
-  df <- purrr::map_dfr(.tickers,
-                       purrr::possibly(vnd_get_data, NULL),
-                       .size = .size)
+  # Define the base URL
+  base <- "https://finfo-api.vndirect.com.vn/v4/stock_prices/"
+  
+  # Initialize an empty data frame to store the results
+  df <- data.frame()
+  
+  for (ticker in .tickers) {
+    
+    # Check if the ticker is valid (e.g., it should be a non-empty string)
+    if (!is.character(ticker) || nchar(ticker) != 3) {
+      stop('Invalid ticker:', ticker)
+    }
+    
+    # Define the endpoint for each ticker
+    endpoint <- paste0('code:', ticker)
+    print(endpoint)
+    
+    # Set query parameters
+    params <- list(
+      sort = "date",
+      size = .size,
+      page = 1,
+      q = endpoint
+    )
+    
+    # Send the HTTP request
+    res <- httr::GET(url = base, query = params)
+    
+    # Check if the HTTP request was successful
+    if (httr::http_error(res)) {
+      warning(paste('Failed to retrieve data for ticker:', ticker))
+      next  # Skip to the next ticker on error
+    }
+    
+    # Extract and process the data
+    list_data <- httr::content(res, "parsed")$data
+    
+    # Convert to a data frame
+    if (length(list_data) > 0) {
+      df_ticker <- purrr::map_dfr(list_data, bind_rows) %>% 
+        dplyr::mutate(date = as.Date(date))
+      
+      # Add the data for the current ticker to the results
+      df <- dplyr::bind_rows(df, df_ticker)
+    } else {
+      warning(paste('No data available for ticker:', ticker))
+    }
+  }
   
   return(df)
 }
 
 
-
-#' Company information
+#' Company Information
 #'
-#' @param .ticker ticker with 3 characters. Pass this parameter if you want to return all company
+#' Retrieves company information from the VNDIRECT API for a given ticker.
+#'
+#' @param .ticker Ticker with 3 characters. Pass this parameter if you want to return information for a specific company.
+#' @return A data frame containing company information.
+#' @importFrom httr GET
+#' @importFrom magrittr `%>%`
 #' @export
+#'
 #' @examples 
-#' tpb_info <- vnd_company_info("TPB")
+#' # Retrieve information for a specific company
+#' cpn_info <- companyInfo()
 #' 
-#' # Get all company after that filter 
-#' 
-#' library(dplyr)
-#' company_info <- vnd_company_info() %>% 
-#'   filter(floor == 'HOSE') %>% 
-#'   filter(indexCode == 'VN30')
 #' @export
-#' 
-vnd_company_info <-  function(.ticker = character()) {
+companyInfo <- function(.ticker = NULL) {
+  # Check if .ticker is valid
+  if (is.null(.ticker) || nchar(.ticker) != 3) {
+    stop('Invalid or missing .ticker. Please provide a valid 3-character ticker.')
+  }
   
-  base <- 'https://finfo-api.vndirect.com.vn/stocks'
+  # Define the base URL and endpoint
+  base <- 'https://finfo-api.vndirect.com.vn/v4/stocks'
+  endpoint <- paste0(base, "code:", .ticker)
   
-  endpoint = paste0(base, "?symbol=", .ticker)
+  # Send the HTTP request
+  res <- httr::GET(url = base, query = params)
   
-  res <- httr::GET(endpoint) %>%
-    httr::content() %>%
-    magrittr::extract2('data')
+  # Check if the HTTP request was successful
+  if (httr::http_error(res)) {
+    stop(paste('Failed to retrieve data for ticker:', .ticker))
+  }
   
-  df_company_info <-  res %>%
-    purrr::map_dfr(bind_rows) %>%
-    dplyr::rename(ticker_name = symbol)
+  # Extract and process the data
+  df_company_info <- httr::content(res, "parsed")$data %>%
+    purrr::map_dfr(bind_rows) 
   
-  df_company_info
-  
+  return(df_company_info)
 }
+
 

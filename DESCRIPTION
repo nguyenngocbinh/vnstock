@@ -2,8 +2,8 @@ Package: vndirect
 Title: Get Data from VNDIRECT API
 Version: 0.0.1
 Authors@R: 
-    person("Ngoc Binh Nguyen", , , "nguyenngocbinhneu@gmail.com", role = c("cre", "aut"))
-Description: Some utility functions for working with the VNDIRECT API. https://finfo-api.vndirect.com.vn/v4/stock_prices/
+    person("Ngoc Binh Nguyen", email = "nguyenngocbinhneu@gmail.com", role = c("cre", "aut"))
+Description: Some utilities functions to work with the VNDIRECT API. <https://finfo-api.vndirect.com.vn/v4/stock_prices/>
 License: MIT + file LICENSE
 URL: https://github.com/nguyenngocbinh/vndirect
 BugReports: https://github.com/nguyenngocbinh/vndirect/issues

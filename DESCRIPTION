@@ -1,9 +1,22 @@
-Package: vnd.data
-Title: GET DATA FROM VNDIRECT API
-Version: 0.0.0.9000
-Authors@R: ('Ngoc Binh', 'Nguyen', email = 'nguyenngocbinhneu@gmail.com', role = c('cre', 'aut'))
-Description: Some utilities functions to get data from vndirect api
-License: {{ License }}
-URL: https://github.com/nguyenngocbinh/vnd_data
-BugReports: https://github.com/nguyenngocbinh/vnd_data/issues
+Package: vndirect
+Title: Get Data from VNDIRECT API
+Version: 0.0.1
+Authors@R: 
+    person("Ngoc Binh Nguyen", email = "nguyenngocbinhneu@gmail.com", role = c("cre", "aut"))
+Description: Some utilities functions to work with the VNDIRECT API. <https://finfo-api.vndirect.com.vn/v4/stock_prices/>
+License: MIT + file LICENSE
+URL: https://github.com/nguyenngocbinh/vndirect
+BugReports: https://github.com/nguyenngocbinh/vndirect/issues
+Imports: 
+    dplyr (>= 1.0.8),
+    httr (>= 1.4.2),
+    magrittr (>= 2.0.2),
+    purrr (>= 0.3.4),
+    testthat (>= 3.1.7)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
+RoxygenNote: 7.2.3

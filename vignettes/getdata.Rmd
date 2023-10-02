@@ -1,0 +1,41 @@
+---
+title: "Get data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(vndirect)
+```
+
+- Get single timeseries
+
+```{r}
+single_data <- getData('VCB', 100)
+head(single_data)
+```
+
+- Get multiple timeseries with default `.size = 100`
+
+```{r}
+multiple_stocks_data <- getData(c('TCB','VCB','BVB'))
+table(multiple_stocks_data$ticker_name)
+```
+
+- Change default size
+
+```{r}
+multiple_stocks_data <- getData(c('TCB','VCB','BVB'), .size = 500)
+table(multiple_stocks_data$ticker_name)
+```
+

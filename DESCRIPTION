@@ -11,11 +11,11 @@ Imports:
     dplyr (>= 1.0.8),
     httr (>= 1.4.2),
     magrittr (>= 2.0.2),
-    purrr (>= 0.3.4),
-    testthat (>= 3.1.7)
+    purrr (>= 0.3.4)
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.1.7)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

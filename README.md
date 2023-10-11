@@ -4,13 +4,13 @@
 
 ```{r}
 # install.packages("devtools")
-devtools::install_github("nguyenngocbinh/vndirect")
+devtools::install_github("nguyenngocbinh/vnstock")
 ```
 
 ## Get data
 
 ``` r
-library(vndirect)
+library(vnstock)
 dt <- getData('VCB', 100)
 head(dt)
 ```
@@ -72,13 +72,13 @@ vndirect
 │  └─ getData.Rd
 ├─ NAMESPACE
 ├─ R
-│  └─ vndirect.R
+│  └─ vnstock.R
 ├─ README.md
 ├─ tests
 │  └─ test-getData.R
 ├─ vignettes
 │  ├─ .gitignore
 │  └─ getdata.Rmd
-└─ vndirect.Rproj
+└─ vnstock.Rproj
 
 ```

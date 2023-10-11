@@ -81,13 +81,13 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <pre class="{r}"><code><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"nguyenngocbinh/vndirect"</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"nguyenngocbinh/vnstock"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="get-data">Get data<a class="anchor" aria-label="anchor" href="#get-data"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nguyenngocbinh/vndirect" class="external-link">vndirect</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">vnstock</span><span class="op">)</span></span>
 <span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getData.html">getData</a></span><span class="op">(</span><span class="st">'VCB'</span>, <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dt</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 25</span></span>
@@ -141,14 +141,14 @@
 │  └─ getData.Rd
 ├─ NAMESPACE
 ├─ R
-│  └─ vndirect.R
+│  └─ vnstock.R
 ├─ README.md
 ├─ tests
 │  └─ test-getData.R
 ├─ vignettes
 │  ├─ .gitignore
 │  └─ getdata.Rmd
-└─ vndirect.Rproj
+└─ vnstock.Rproj
 </code></pre>
 </div>
 </div>

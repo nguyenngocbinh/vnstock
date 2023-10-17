@@ -1,35 +1,40 @@
-name: Python CI
+name: Python Package Workflow
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
     branches:
       - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
 
-    - name: Run Tests
-      run: pytest
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r python-package/requirements.txt
 
-    - name: Run Linters
-      run: pylint vnstock
+      - name: Run tests
+        run: |
+          cd python-package
+          python -m unittest discover tests
 
-    - name: Run Code Style Check
-      run: flake8 vnstock
-
-    - name: Report Test Coverage
-      run: coverage run -m pytest
-    - name: Upload coverage to Codecov
-      run: codecov
+      - name: Upload to PyPI
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          cd python-package
+          python setup.py sdist bdist_wheel
+          pip install twine
+          twine upload dist/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}

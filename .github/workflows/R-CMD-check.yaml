@@ -40,6 +40,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          path: 'vnstock/r-package'  # Set the target directory for the checkout
 
       - name: Setup Pandoc
         uses: r-lib/actions/setup-pandoc@v2

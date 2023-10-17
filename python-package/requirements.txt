@@ -1,0 +1,4 @@
+# requirements.txt for the Python package in my_project
+pandas
+requests
+pytest

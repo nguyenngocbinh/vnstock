@@ -1,6 +1,11 @@
-# Import necessary libraries
 import pandas as pd
 import requests
+
+# Define the HEADERS dictionary
+HEADERS = {
+    'content-type': 'application/x-www-form-urlencoded',
+    'User-Agent': 'Mozilla'
+}
 
 def get_data(tickers, size=100):
     """
@@ -33,7 +38,7 @@ def get_data(tickers, size=100):
         endpoint = f"code:{ticker}"
         print(endpoint)
 
-        # Set query parameters
+        # Set query parameters, including the HEADERS
         params = {
             "sort": "date",
             "size": size,
@@ -41,8 +46,8 @@ def get_data(tickers, size=100):
             "q": endpoint,
         }
 
-        # Send the HTTP request
-        res = requests.get(base, params=params)
+        # Send the HTTP request with the HEADERS
+        res = requests.get(base, params=params, headers=HEADERS)
 
         # Check if the HTTP request was successful
         if res.status_code != 200:
@@ -61,4 +66,19 @@ def get_data(tickers, size=100):
             print(f"No data available for ticker: {ticker}")
 
     return df
+
+
+import pandas as pd
+
+def ohlcv(df):
+    """
+    Calculate OHLCV (Open, High, Low, Close, and Volume) from a DataFrame of stock prices.
+
+    :param df: A DataFrame containing stock price data with columns ['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'].
+    :return: A DataFrame containing OHLCV data with 'Date' as the index.
+    """
+    ohlcv_df = df[['date', 'open', 'high', 'low', 'close', 'adClose', 'nmVolume']]
+    ohlcv_df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    ohlcv_df.index = pd.to_datetime(ohlcv_df['Date'])
+    return ohlcv_df
 

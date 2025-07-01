@@ -10,16 +10,26 @@ You can install vnstock using `pip`:
 pip install vnstock
 ```
 
-
 ## Usage
 
 ```python
-import vnstock
+from vnstock.vnstock import VNStockData
 
 tickers = ['TPB', 'VCB', 'HCM']
 size = 100
-df = my_package.get_data(tickers, size)
+vns = VNStockData(tickers, size)
+df = vns.get_data()
 print(df)
+```
+
+## Running Tests
+
+This package uses Python's built-in `unittest` framework. Example tests are provided in the `tests/` directory.
+
+To run all tests, from the `python-package` directory, use:
+
+```
+python -m unittest discover tests
 ```
 
 ## Documentation

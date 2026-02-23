@@ -2,6 +2,9 @@ import pandas as pd
 import requests
 import logging
 
+logger = logging.getLogger(__name__)
+
+
 class VNStockData:
     """
     Class for retrieving and processing stock data from the VNDIRECT API.
@@ -10,6 +13,7 @@ class VNStockData:
         'content-type': 'application/x-www-form-urlencoded',
         'User-Agent': 'Mozilla'
     }
+    DEFAULT_TIMEOUT = 30
 
     def __init__(self, tickers, size=125):
         self.base_url = "https://finfo-api.vndirect.com.vn/v4/stock_prices/"
@@ -18,7 +22,6 @@ class VNStockData:
         self.raw_data = None
         self.ohlcv_df = None
         self.returns_data = None
-        logging.basicConfig(level=logging.INFO)
 
     def get_data(self):
         """
@@ -32,10 +35,10 @@ class VNStockData:
         df = pd.DataFrame()
         for ticker in self.tickers:
             if not isinstance(ticker, str) or not ticker:
-                logging.warning(f"Invalid ticker: {ticker}")
+                logger.warning(f"Invalid ticker: {ticker}")
                 continue
             endpoint = f"code:{ticker}"
-            logging.info(f"Retrieving data for ticker: {ticker}")
+            logger.info(f"Retrieving data for ticker: {ticker}")
             params = {
                 "sort": "date",
                 "size": self.size,
@@ -43,9 +46,12 @@ class VNStockData:
                 "q": endpoint,
             }
             try:
-                res = requests.get(self.base_url, params=params, headers=self.HEADERS)
+                res = requests.get(
+                    self.base_url, params=params, headers=self.HEADERS,
+                    timeout=self.DEFAULT_TIMEOUT,
+                )
                 if res.status_code != 200:
-                    logging.warning(f"Failed to retrieve data for ticker: {ticker}")
+                    logger.warning(f"Failed to retrieve data for ticker: {ticker}")
                     continue
                 data = res.json().get("data", [])
                 if data:
@@ -54,9 +60,9 @@ class VNStockData:
                         df_ticker["date"] = pd.to_datetime(df_ticker["date"])
                     df = pd.concat([df, df_ticker], ignore_index=True)
                 else:
-                    logging.info(f"No data available for ticker: {ticker}")
-            except Exception as e:
-                logging.error(f"Error retrieving data for ticker {ticker}: {e}")
+                    logger.info(f"No data available for ticker: {ticker}")
+            except requests.RequestException as e:
+                logger.error(f"Error retrieving data for ticker {ticker}: {e}")
                 continue
         self.raw_data = df
         return self.raw_data
@@ -72,7 +78,7 @@ class VNStockData:
         for col in required_cols:
             if col not in self.raw_data.columns:
                 raise ValueError(f"Missing column: {col}")
-        ohlcv_df = self.raw_data[required_cols]
+        ohlcv_df = self.raw_data[required_cols].copy()
         ohlcv_df.columns = ['Date', 'Symbol', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
         ohlcv_df.set_index(['Symbol', 'Date'], inplace=True)
         self.ohlcv_df = ohlcv_df

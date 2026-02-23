@@ -1,4 +1,4 @@
 from vnstock.vnstock import VNStockData
-from vnstock import utils
+from . import utils
 
 __all__ = ["VNStockData", "utils"]

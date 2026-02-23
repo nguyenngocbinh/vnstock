@@ -13,7 +13,7 @@ class VNStockData:
         'content-type': 'application/x-www-form-urlencoded',
         'User-Agent': 'Mozilla'
     }
-    DEFAULT_TIMEOUT = 30
+    DEFAULT_TIMEOUT = 30  # seconds; prevents indefinite hangs on slow networks
 
     def __init__(self, tickers, size=125):
         self.base_url = "https://finfo-api.vndirect.com.vn/v4/stock_prices/"

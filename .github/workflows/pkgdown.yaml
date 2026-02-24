@@ -32,10 +32,12 @@ jobs:
         with:
           extra-packages: any::pkgdown, local::.
           needs: website
+          working-directory: r-package
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
+        working-directory: r-package
 
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
@@ -43,4 +45,4 @@ jobs:
         with:
           clean: false
           branch: gh-pages
-          folder: docs
+          folder: r-package/docs

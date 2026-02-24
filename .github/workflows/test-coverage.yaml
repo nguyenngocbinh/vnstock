@@ -25,6 +25,7 @@ jobs:
         with:
           extra-packages: any::covr
           needs: coverage
+          working-directory: r-package
 
       - name: Test coverage
         run: |
@@ -34,6 +35,7 @@ jobs:
             install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
           )
         shell: Rscript {0}
+        working-directory: r-package
 
       - name: Show testthat output
         if: always()

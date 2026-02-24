@@ -20,21 +20,21 @@ library(vnstock)
 
 - Get single timeseries
 
-```{r}
+```{r, eval = FALSE}
 single_data <- getData('VCB', 100)
 head(single_data)
 ```
 
 - Get multiple timeseries with default `.size = 100`
 
-```{r}
+```{r, eval = FALSE}
 multiple_stocks_data <- getData(c('TCB','VCB','BVB'))
 table(multiple_stocks_data$ticker_name)
 ```
 
 - Change default size
 
-```{r}
+```{r, eval = FALSE}
 multiple_stocks_data <- getData(c('TCB','VCB','BVB'), .size = 500)
 table(multiple_stocks_data$ticker_name)
 ```
